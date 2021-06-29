@@ -2,19 +2,18 @@ pipeline {
     agent {
         docker {
             image 'dotnet/sdk:5.0'
-            label 'dotnet-container-build'
-            }
+        }
     }
 
     stages {
         stage('DotNet Build') {
             steps {
-                dotnet build
+                sh 'dotnet build'
             }
         }
         stage('DotNet Test') {
             steps {
-                dotnet test
+                sh 'dotnet test'
             }
         }
         // stage('Node Build') {
