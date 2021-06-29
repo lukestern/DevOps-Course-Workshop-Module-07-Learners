@@ -20,7 +20,7 @@ jobs:
 
       - name: Typescript lint
         run: npm run lint
-        working-directory: ./
+        working-directory: ./DotnetTemplate.Web
 
       - name: Typescript test
         run: npm t
