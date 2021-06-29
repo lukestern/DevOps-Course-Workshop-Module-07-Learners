@@ -1,43 +1,51 @@
 pipeline {
-    agent {
-        docker {
-            image 'mcr.microsoft.com/dotnet/sdk:5.0'
-        }
-    }
+    agent none
 
     stages {
-        stage('DotNet Build') {
-            steps {
-                sh 'dotnet build'
+        stage('DotNet') {
+            agent {
+                docker {
+                    image 'mcr.microsoft.com/dotnet/sdk:5.0'
+                }
+            }
+            environment {
+                DOTNET_CLI_HOME = '/tmp/dotnet_cli_home'
+            }
+            stages {
+                stage('Build') {
+                    steps {
+                        sh 'dotnet build'
+                    }
+                }
+                stage('Test') {
+                    steps {
+                        sh 'dotnet test'
+                    }
+                }
             }
         }
-        stage('DotNet Test') {
-            steps {
-                sh 'dotnet test'
+
+        stage('Node') {
+                agent {
+                    docker { image 'node:14-alpine' }
+                }
+            stages {
+                stage('Node Build') {
+                    steps {
+                        dir('./DotnetTemplate.Web') {
+                            sh 'node install'
+                        }
+                    }
+                }
+                stage('Node Test') {
+                    steps {
+                        dir('./DotnetTemplate.Web') {
+                            sh 'npm run lint'
+                            sh 'npm t'
+                        }
+                    }
+                }
             }
         }
-        // stage('Node Build') {
-        //     agent {
-        //         docker { image 'node:14-alpine' }
-        //         reuseNode true
-        //     }
-        //     steps {
-        //         dir('./DotnetTemplate.Web') {
-        //             node install
-        //         }
-        //     }
-        // }
-        // stage('Node Test') {
-        //     agent {
-        //         docker { image 'node:14-alpine' }
-        //         reuseNode true
-        //     }
-        //     steps {
-        //         dir('./DotnetTemplate.Web') {
-        //             npm run lint
-        //             npm t
-        //         }
-        //     }
-        // }
     }
 }
