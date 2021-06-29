@@ -13,3 +13,12 @@ jobs:
         with:
           TEST: true
           PACK: false
+
+      - name: Typescript install
+        run: npm install
+
+      - name: Typescript lint
+        run: npm run lint
+
+      - name: Typescript test
+        run: npm t
