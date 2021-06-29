@@ -1,6 +1,6 @@
 # Workshop Module 07
-![github workflow](https://github.com/lukestern/
-DevOps-Course-Workshop-Module-07-Learners/actions/workflows/continuous-integration-workflow.yml/badge.svg)
+[![main Actions Status](https://github.com/lukestern/
+DevOps-Course-Workshop-Module-07-Learners/actions/workflows/continuous-integration-workflow.yml/badge.svg)](https://github.com/lukestern/DevOps-Course-Workshop-Module-07-Learners/actions)
 
 This repository is for learners on Corndel's DevOps apprenticeship.
 
