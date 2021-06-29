@@ -33,7 +33,7 @@ pipeline {
                 stage('Node Build') {
                     steps {
                         dir('./DotnetTemplate.Web') {
-                            sh 'node install'
+                            sh 'npm install'
                         }
                     }
                 }
