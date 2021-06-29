@@ -2,21 +2,48 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('DotNet Build') {
+            agent {
+                docker { image 'dotnet/sdk:5.0' }
+                reuseNode true
+            }
             steps {
                 dotnet build
-                cd ./DotNetTemplate.Web
-                npm install
             }
         }
-        stage('Test') {
+        stage('DotNet Test') {
+            agent {
+                docker { image 'dotnet/sdk:5.0' }
+                reuseNode true
+            }
             steps {
-                pwd
+                dotnet test
             }
         }
-        stage('Deploy') {
+    }
+
+    stages {
+        stage('Node Build') {
+            agent {
+                docker { image 'node:14-alpine' }
+                reuseNode true
+            }
             steps {
-                echo 'Deploying....'
+                dir('./DotnetTemplate.Web') {
+                    node install
+                }
+            }
+        }
+        stage('Node Test') {
+            agent {
+                docker { image 'node:14-alpine' }
+                reuseNode true
+            }
+            steps {
+                dir('./DotnetTemplate.Web') {
+                    npm run lint
+                    npm t
+                }
             }
         }
     }
