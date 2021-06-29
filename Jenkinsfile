@@ -1,12 +1,12 @@
 pipeline {
-    agent none
+    agent docker
 
     stages {
         stage('DotNet Build') {
             agent {
                 docker {
                     image 'dotnet/sdk:5.0'
-                    label 'dotnet-container'
+                    label 'dotnet-container-build'
                  }
                 reuseNode true
             }
@@ -18,7 +18,7 @@ pipeline {
             agent {
                 docker {
                     image 'dotnet/sdk:5.0'
-                    label 'dotnet-container'
+                    label 'dotnet-container-test'
                  }
                 reuseNode true
             }
