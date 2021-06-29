@@ -41,11 +41,19 @@ pipeline {
                     steps {
                         dir('./DotnetTemplate.Web') {
                             sh 'npm run lint'
-                            sh 'npm t'
+                            sh 'npm run test-with-coverage'
                         }
                     }
                 }
             }
+        }
+
+        stage('Publish Code Coverage') {
+            publishCoverage adapters: [
+                istanbulCoberturaAdapter(
+                    'DotnetTemplate.Web/coverage/cobertura-coverage.xml'
+                )
+            ]
         }
     }
 }
