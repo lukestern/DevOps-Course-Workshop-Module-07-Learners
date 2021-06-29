@@ -1,4 +1,6 @@
 pipeline {
+    agent none
+
     stages {
         stage('DotNet Build') {
             agent {
@@ -18,31 +20,28 @@ pipeline {
                 dotnet test
             }
         }
-    }
-
-    stages {
-        stage('Node Build') {
-            agent {
-                docker { image 'node:14-alpine' }
-                reuseNode true
-            }
-            steps {
-                dir('./DotnetTemplate.Web') {
-                    node install
-                }
-            }
-        }
-        stage('Node Test') {
-            agent {
-                docker { image 'node:14-alpine' }
-                reuseNode true
-            }
-            steps {
-                dir('./DotnetTemplate.Web') {
-                    npm run lint
-                    npm t
-                }
-            }
-        }
+        // stage('Node Build') {
+        //     agent {
+        //         docker { image 'node:14-alpine' }
+        //         reuseNode true
+        //     }
+        //     steps {
+        //         dir('./DotnetTemplate.Web') {
+        //             node install
+        //         }
+        //     }
+        // }
+        // stage('Node Test') {
+        //     agent {
+        //         docker { image 'node:14-alpine' }
+        //         reuseNode true
+        //     }
+        //     steps {
+        //         dir('./DotnetTemplate.Web') {
+        //             npm run lint
+        //             npm t
+        //         }
+        //     }
+        // }
     }
 }
