@@ -40,7 +40,8 @@ jobs:
 
   deploy:
     name: Deploy to Docker
-    if: success() && github.ref == 'refs/heads/main'
+    needs: build
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
