@@ -31,8 +31,8 @@ jobs:
         uses: ravsamhq/notify-slack-action@master
         with:
           status: ${{ job.status }}
-          notification_title: '{github.job} has {status_message}'
-          message_format: '{emoji} *{github.job}* {status_message} in <{repo_url}|{repo}>'
+          notification_title: '{job} has {status_message}'
+          message_format: '{emoji} *{job}* {status_message} in <{repo_url}|{repo}>'
           footer: 'Linked Repo <{repo_url}|{repo}>'
           notify_when: 'failure,success'
         env:
@@ -72,8 +72,8 @@ jobs:
         uses: ravsamhq/notify-slack-action@master
         with:
           status: ${{ job.status }}
-          notification_title: '{github.job} has {status_message}'
-          message_format: '{emoji} *{github.job}* {status_message} in <{repo_url}|{repo}>'
+          notification_title: '{job} has {status_message}'
+          message_format: '{emoji} *{job}* {status_message} in <{repo_url}|{repo}>'
           footer: 'Linked Repo <{repo_url}|{repo}>'
           notify_when: 'failure,success'
         env:
